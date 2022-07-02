@@ -6,7 +6,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    'teko.to',
+    'teko-to.herokuapp.com',
     'www.teko.to',
 ]
 

@@ -1,0 +1,2 @@
+web: gunicorn teko.wsgi
+
