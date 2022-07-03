@@ -3,6 +3,7 @@ import React, { Component } from "react";
 type State = {
   code: string,
   output: string,
+  status: "ready" | "running" | "errored",
 }
 
 export default class CodeRunner extends Component<{}, State>{
@@ -12,46 +13,58 @@ export default class CodeRunner extends Component<{}, State>{
     this.state = {
       code: "",
       output: "",
+      status: "ready",
     }
   }
 
   async runCode() {
-    this.setState({
-      output: "",
-    })
-
-    const response = await fetch("/create_run/", {
-      method: "POST",
-      body: JSON.stringify({
-        contents: this.state.code,
-      }),
-    });
-
-    if (response.body == null) {
+    if (this.state.status == "running") {
       return;
     }
 
-    const reader = response.body.getReader();
+    this.setState({
+      output: "",
+      status: "running",
+    })
 
-    while (true) {
-      const { value, done } = await reader.read();
+    try {
+      const response = await fetch("/create_run/", {
+        method: "POST",
+        body: JSON.stringify({
+          contents: this.state.code,
+        }),
+      });
+
+      if (response.body == null) {
+        return;
+      }
+
+      const reader = response.body.getReader();
+
+      while (true) {
+        const { value, done } = await reader.read();
+
+        this.setState({
+          output: this.state.output + new TextDecoder().decode(value),
+        });
+
+        if (done) break;
+
+        if (this.state.output.length > 5000) {
+          await reader.cancel()
+          throw "Too long yo";
+        }
+      }
 
       this.setState({
-        output: this.state.output + new TextDecoder().decode(value),
-      });
-      if (done) break;
+        status: "ready",
+      })
+    } catch (e) {
+      this.setState({
+        status: "errored",
+      })
     }
   }
-
-  // numLines() {
-  //   return (this.state.code.match(/\n/g) || []).length + 1;
-  // }
-  //
-  // lineNumbers() {
-  //   const numbersString = Array.from({length: this.numLines()}, (_, i) => i + 1).join('\n');
-  //
-  //   return <div className="line-numbers">{numbersString}</div>
-  // }
 
   render() {
     let numbersString = "";
@@ -70,7 +83,9 @@ export default class CodeRunner extends Component<{}, State>{
 
     return <div className="row">
       <div className="col-12 code-top-bar">
-        <button onClick={() => this.runCode()}>Run!</button>
+        <button onClick={() => this.runCode()} disabled={this.state.status == "running"}>
+          Run!
+        </button>
       </div>
       <div className="col-6 code code-input">
         <textarea rows={numLines} spellCheck={false}
@@ -79,6 +94,9 @@ export default class CodeRunner extends Component<{}, State>{
       </div>
       <div className="col-6 code code-output">
         {this.state.output}
+        {this.state.status === "errored" && (
+          <span className="runtime-error">Process killed.</span>
+        )}
       </div>
     </div>
   }

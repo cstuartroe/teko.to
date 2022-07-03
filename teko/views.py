@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import StreamingHttpResponse, HttpRequest
+from django.http import StreamingHttpResponse, HttpRequest, HttpResponse
 import subprocess
 import json
 
@@ -11,15 +11,11 @@ def react_index(request):
 def stream(teko_content: str):
     process = subprocess.Popen(["./tekolang", "-c", teko_content], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
-    for i, line in enumerate(iter(lambda: process.stdout.readline(), b'')):
-        yield line
-
-        if i >= 100:
-            yield "Process killed.\n"
-            break
+    yield from iter(lambda: process.stdout.readline(), b'')
 
 
 def create_run(request: HttpRequest):
     if request.method == "POST":
         body = json.loads(request.body.decode())
+
         return StreamingHttpResponse(stream(body["contents"]))
