@@ -44,6 +44,10 @@ export default class CodeRunner extends Component<{}, State>{
       while (true) {
         const { value, done } = await reader.read();
 
+        if (!response.ok) {
+          throw "A resource limit was reached";
+        }
+
         this.setState({
           output: this.state.output + new TextDecoder().decode(value),
         });
