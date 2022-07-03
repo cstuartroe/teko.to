@@ -5,7 +5,7 @@ import subprocess
 import json
 import resource
 
-MAX_MEMORY = 2**30 if settings.DEBUG else 2**28  # 1GB
+MAX_MEMORY = 2**30 if settings.DEBUG else 2**29  # 1GB
 MAX_OUTPUT_LINES = 200 if settings.DEBUG else 10000
 
 resource.setrlimit(resource.RLIMIT_AS, (MAX_MEMORY, MAX_MEMORY))
