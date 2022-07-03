@@ -4,9 +4,12 @@ type State = {
   code: string,
   output: string,
   status: "ready" | "running" | "errored",
+  cursor: number,
 }
 
 export default class CodeRunner extends Component<{}, State>{
+  private textarea =  React.createRef<HTMLTextAreaElement>();
+
   constructor(props: {}) {
     super(props);
 
@@ -14,6 +17,7 @@ export default class CodeRunner extends Component<{}, State>{
       code: "",
       output: "",
       status: "ready",
+      cursor: 0,
     }
   }
 
@@ -70,11 +74,32 @@ export default class CodeRunner extends Component<{}, State>{
     }
   }
 
+  setCursor() {
+    const ta = this.textarea.current;
+
+    if (ta === null) { return; }
+
+    ta.focus();
+    ta.selectionEnd = this.state.cursor;
+  }
+
+  componentDidMount() {
+    this.setCursor();
+  }
+
+  componentDidUpdate() {
+    this.setCursor();
+  }
+
   render() {
     let numbersString = "";
     let numLines = 0;
 
-    const maxLineLength = 53;
+    let maxLineLength = 0;
+    const inputBox = this.textarea.current;
+    if (inputBox !== null) {
+      maxLineLength = Math.floor((inputBox.offsetWidth - 50) / 9.65);
+    }
 
     this.state.code.split('\n').forEach((line, i) => {
       numbersString += (i+1);
@@ -92,8 +117,12 @@ export default class CodeRunner extends Component<{}, State>{
         </button>
       </div>
       <div className="col-6 code code-input">
-        <textarea rows={numLines} spellCheck={false}
-                  onChange={event => this.setState({code: event.target.value})}/>
+        <textarea rows={numLines} spellCheck={false} ref={this.textarea}
+                  value={this.state.code.replace(' ', '\xa0')}
+                  onChange={event => this.setState({
+                    code: event.target.value,
+                    cursor: event.target.selectionEnd,
+                  })}/>
         <div className="line-numbers">{numbersString}</div>
       </div>
       <div className="col-6 code code-output">
