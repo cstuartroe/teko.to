@@ -6,7 +6,7 @@ const regexes: [RegExp, string][] = [
   [/(?<![a-z])(fn|var|type|while|for|in|if|then|else|do|scope|Map|Set)(?![a-z])/, 'teko-keyword'],
 ];
 
-function processLine(s: string): any[] {
+function processLine(s: string, index: number): any[] {
   for (const pair of regexes) {
     const [regex, className] = pair;
 
@@ -16,15 +16,15 @@ function processLine(s: string): any[] {
       const before = s.substring(0, match.index);
       const after = s.substring(match.index + match[0].length);
 
-      return [
-        ...processLine(before),
-        <span className={className}>{match[0]}</span>,
-        ...processLine(after),
-      ];
+      const beforePieces = processLine(before, index);
+      const span = <span className={className} key={index + beforePieces.length}>{match[0]}</span>;
+      const afterPieces = processLine(after, index + beforePieces.length + 1);
+
+      return [...beforePieces, span, ...afterPieces];
     }
   }
 
-  return [s];
+  return [<span key={index}>{s}</span>];
 }
 
 type Props = {
@@ -36,10 +36,10 @@ export default class HighlightedCode extends Component<Props, any> {
   render() {
     return (
       <div className="highlighted-code">
-        {this.props.content.split('\n').map(line => <>
-          {processLine(line)}
+        {this.props.content.split('\n').map((line, i) => <span key={i}>
+          {processLine(line, 0)}
           {'\n'}
-        </>)}
+        </span>)}
       </div>
     );
   }

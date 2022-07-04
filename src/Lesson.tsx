@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { useParams } from "react-router-dom";
 import { LessonDef } from "./types";
 import { parse } from "@textlint/markdown-to-ast";
 import CodeRunner from "./CodeRunner";
@@ -49,7 +50,7 @@ function AstNode(props: {src: any}) {
 }
 
 type Props = {
-  definition: LessonDef,
+  title: string,
   lessons: LessonDef[],
 }
 
@@ -66,12 +67,22 @@ export default class Lesson extends Component<Props, State> {
     }
   }
 
-  componentDidMount() {
-    fetch(`/static/md/${this.props.definition.title}.md`)
+  getContent() {
+    fetch(`/static/md/${this.props.title}.md`)
       .then(response => response.text())
       .then(content => {
         this.setState({content})
-      })
+      });
+  }
+
+  componentDidMount() {
+    this.getContent();
+  }
+
+  componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot?: any) {
+    if (prevProps.title !== this.props.title) {
+      this.getContent();
+    }
   }
 
   render() {
@@ -89,4 +100,14 @@ export default class Lesson extends Component<Props, State> {
       </div>
     );
   }
+}
+
+export function LessonFromParams(props: {lessons: LessonDef[]}) {
+  let { title } = useParams();
+
+  if (title === undefined) {
+    return null;
+  }
+
+  return <Lesson title={title} lessons={props.lessons}/>
 }
