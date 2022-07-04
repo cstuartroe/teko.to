@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import { LessonDef } from "./types";
-import Lesson, { LessonFromParams } from "./Lesson";
+import Home from "./Home";
+import { LessonFromParams } from "./Lesson";
 
 import "../static/scss/main.scss";
 
@@ -29,7 +30,7 @@ class App extends Component<{}, State> {
       <Router>
         <div className="container-fluid">
           <Routes>
-            <Route index element={<Lesson title={"Hello World"} lessons={this.state.lessons}/>}/>
+            <Route index element={<Home/>}/>
 
             <Route path="lesson">
               <Route path=":title" element={<LessonFromParams lessons={this.state.lessons}/>}/>

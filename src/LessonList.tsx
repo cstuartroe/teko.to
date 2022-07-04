@@ -45,7 +45,7 @@ export class LessonItem extends Component<Props, State> {
         <div className="lesson-list-item">
           <div className="lesson-number">{position.join('.')}</div>
           <div>
-            <Link to={'/lesson/' + lesson.title}>
+            <Link to={'/lesson/' + lesson.title.replace(' ', '_')}>
               {lesson.title}
             </Link>
           </div>

@@ -1,7 +1,9 @@
 $pale_gray: #f3f3f3;
 $light_gray: #777;
 $dark_gray: #444;
-$teko_blue: #c5e6fc;
+$teko_hue: 204;
+$teko_blue: hsl($teko_hue, 90%, 88%);
+$teko_dark_blue: hsl($teko_hue, 90%, 75%);
 $error_red: #f00;
 $success_green: #575;
 $keyword_orange: #b74;
@@ -19,6 +21,64 @@ $keyword_orange: #b74;
 h1, h2, h3, p, a, .lesson-number {
   font-family: "Open Sans", sans-serif;
   letter-spacing: .5px;
+}
+
+.navbar {
+  height: 10vh;
+  padding: 0;
+
+  .teko-home-link {
+    text-align: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 0;
+    background-color: white;
+    color: $teko_dark_blue;
+
+    &.reverse {
+      background-color: $teko_blue;
+      color: white;
+    }
+
+    a {
+      color: inherit;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  .navbar-links {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    height: 100%;
+
+    .navbar-link {
+      text-align: center;
+      color: $teko_dark_blue;
+      font-weight: 600;
+      position: relative;
+      flex: 1;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      &:hover {
+        color: white;
+        background-color: $teko_blue;
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.lesson {
+  height: 90vh;
 }
 
 .code-runner {
@@ -127,12 +187,9 @@ h1, h2, h3, p, a, .lesson-number {
   color: $success_green;
 }
 
-.lesson {
-  height: 100vh;
-}
-
 .lesson-panel {
   background-color: $teko_blue;
+  padding-top: 15px;
 }
 
 .lesson-list-section {

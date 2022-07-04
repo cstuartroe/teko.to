@@ -4,6 +4,7 @@ import { LessonDef } from "./types";
 import { parse } from "@textlint/markdown-to-ast";
 import CodeRunner from "./CodeRunner";
 import LessonList from "./LessonList";
+import Navbar from "./Navbar";
 
 function AstNode(props: {src: any}) {
   const { src } = props;
@@ -89,15 +90,19 @@ export default class Lesson extends Component<Props, State> {
     const ast = parse(this.state.content);
 
     return (
-      <div className="row lesson">
-        <div className="col-2 lesson-panel">
-          <LessonList lessons={this.props.lessons} position={[]} visible={true}/>
+      <>
+        <Navbar reverseHomeLinkColor={true}/>
+
+        <div className="row lesson">
+          <div className="col-2 lesson-panel">
+            <LessonList lessons={this.props.lessons} position={[]} visible={true}/>
+          </div>
+          <div className="col-1"/>
+          <div className="col-6">
+            {ast.children.map((node: any, i: number) => <AstNode src={node} key={i}/>)}
+          </div>
         </div>
-        <div className="col-1"/>
-        <div className="col-6">
-          {ast.children.map((node: any, i: number) => <AstNode src={node} key={i}/>)}
-        </div>
-      </div>
+      </>
     );
   }
 }
@@ -109,5 +114,5 @@ export function LessonFromParams(props: {lessons: LessonDef[]}) {
     return null;
   }
 
-  return <Lesson title={title} lessons={props.lessons}/>
+  return <Lesson title={title.replace('_', ' ')} lessons={props.lessons}/>
 }
