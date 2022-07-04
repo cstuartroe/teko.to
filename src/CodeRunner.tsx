@@ -7,6 +7,7 @@ type Props = {
   starter_code?: string,
   target_output?: string,
   frameHeight?: string,
+  frozen?: boolean,
 }
 
 type State = {
@@ -114,13 +115,19 @@ export default class CodeRunner extends Component<Props, State>{
 
     const codeContent = this.state.code.replace(/ /g, '\xa0');
 
+    let inputHeight = "300px";
+    if (this.props.frameHeight) {
+      inputHeight = this.props.frameHeight;
+    } else if (this.props.frozen) {
+      inputHeight = (22*numLines) + "px";
+    }
+
     return <div className="row code-runner">
-      <div className="col-12 code code-input"
-           onClick={() => this.textarea.current?.focus()}
-           style={{height: this.props.frameHeight || "300px"}}>
+      <div className="col-12 code code-input" style={{height: inputHeight}}
+           onClick={() => this.textarea.current?.focus()}>
         <HighlightedCode rows={numLines} content={codeContent}/>
         <textarea rows={numLines} spellCheck={false} ref={this.textarea}
-                  value={codeContent} className="editable"
+                  value={codeContent} className="editable" readOnly={!!this.props.frozen}
                   onChange={event => this.setState({
                     code: event.target.value,
                     cursor: event.target.selectionEnd,
