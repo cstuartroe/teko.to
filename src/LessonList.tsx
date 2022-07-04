@@ -41,11 +41,15 @@ export class LessonItem extends Component<Props, State> {
     const icon = this.state.expanded ? faAngleDown : faAngleRight;
 
     return (
-      <div className="lesson-list-item">
-        <Link to={'/lesson/' + lesson.title}>
-          {position.join('.')}{' '}
-          {lesson.title}
-        </Link>
+      <div className="lesson-list-section">
+        <div className="lesson-list-item">
+          <div className="lesson-number">{position.join('.')}</div>
+          <div>
+            <Link to={'/lesson/' + lesson.title}>
+              {lesson.title}
+            </Link>
+          </div>
+        </div>
 
         {lesson.children.length > 0 && (
           <FontAwesomeIcon icon={icon} onClick={() => this.toggleOpen()}/>

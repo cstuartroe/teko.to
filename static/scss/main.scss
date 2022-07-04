@@ -16,8 +16,9 @@ $keyword_orange: #b74;
   src: url("/static/font/OpenSans-VariableFont_wdth,wght.ttf") format("ttf");
 }
 
-h1, h2, h3, p, a {
+h1, h2, h3, p, a, .lesson-number {
   font-family: "Open Sans", sans-serif;
+  letter-spacing: .5px;
 }
 
 .code-runner {
@@ -134,16 +135,28 @@ h1, h2, h3, p, a {
   background-color: $teko_blue;
 }
 
-.lesson-list-item {
-  padding-left: 20px;
+.lesson-list-section {
+  padding-left: 10px;
   position: relative;
 
-  a {
-    color: $dark_gray;
+  .lesson-list-item {
+    display: flex;
+    flex-direction: row;
 
-    &:hover {
-      text-decoration: none;
+    a {
+      color: $dark_gray;
+      padding-right: 25px;
+
+      &:hover {
+        text-decoration: none;
+        font-weight: 600;
+        letter-spacing: .2px;
+      }
+    }
+
+    .lesson-number {
       font-weight: 600;
+      padding-right: 5px;
     }
   }
 
