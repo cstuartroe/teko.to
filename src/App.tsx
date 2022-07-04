@@ -5,6 +5,7 @@ import Home from "./Home";
 import { LessonFromParams } from "./Lesson";
 
 import "../static/scss/main.scss";
+import FreeCode from "./FreeCode";
 
 type State = {
   lessons: LessonDef[],
@@ -35,6 +36,8 @@ class App extends Component<{}, State> {
             <Route path="lesson">
               <Route path=":title" element={<LessonFromParams lessons={this.state.lessons}/>}/>
             </Route>
+
+            <Route path="code" element={<FreeCode/>}/>
 
             <Route path="*" element={<Navigate to="/" replace={true}/>}/>
           </Routes>

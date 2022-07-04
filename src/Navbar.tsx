@@ -16,7 +16,7 @@ const NavbarLinkDefs: [string, string][] = [
   ["About", "/about"],
   ["Install", "/install"],
   ["Learn", "/lesson/Hello_World"],
-  ["Free Code", "/code"],
+  ["Play", "/code"],
 ];
 
 export default class Navbar extends Component<Props, {}> {

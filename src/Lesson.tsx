@@ -98,7 +98,7 @@ export default class Lesson extends Component<Props, State> {
             <LessonList lessons={this.props.lessons} position={[]} visible={true}/>
           </div>
           <div className="col-1"/>
-          <div className="col-6">
+          <div className="col-6 main-frame">
             {ast.children.map((node: any, i: number) => <AstNode src={node} key={i}/>)}
           </div>
         </div>

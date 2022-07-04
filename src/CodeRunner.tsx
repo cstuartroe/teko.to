@@ -6,6 +6,7 @@ import HighlightedCode from "./HighlightedCode";
 type Props = {
   starter_code?: string,
   target_output?: string,
+  frameHeight?: string,
 }
 
 type State = {
@@ -114,7 +115,9 @@ export default class CodeRunner extends Component<Props, State>{
     const codeContent = this.state.code.replace(/ /g, '\xa0');
 
     return <div className="row code-runner">
-      <div className="col-12 code code-input">
+      <div className="col-12 code code-input"
+           onClick={() => this.textarea.current?.focus()}
+           style={{height: this.props.frameHeight || "300px"}}>
         <HighlightedCode rows={numLines} content={codeContent}/>
         <textarea rows={numLines} spellCheck={false} ref={this.textarea}
                   value={codeContent} className="editable"

@@ -77,6 +77,10 @@ h1, h2, h3, p, a, .lesson-number {
   }
 }
 
+.main-frame {
+  padding-top: 2vh;
+}
+
 .lesson {
   height: 90vh;
 }
@@ -104,8 +108,8 @@ h1, h2, h3, p, a, .lesson-number {
 }
 
 .code-input {
-  height: 300px;
   position: relative;
+  cursor: text;
 
   .highlighted-code, .editable {
     width: 100%;
