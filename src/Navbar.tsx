@@ -7,9 +7,17 @@ type Props = {
 }
 
 function NavbarLink(props: {title: string, href: string}) {
-  return <Link to={props.href} className="navbar-link">
-    {props.title}
-  </Link>
+  const { title, href } = props;
+  
+  if (href[0] == "/") {
+    return <Link to={href} className="navbar-link">
+      {title}
+    </Link>
+  } else {
+    return <a href={href} className="navbar-link" target="_blank">
+      {title}
+    </a>;
+  }
 }
 
 const NavbarLinkDefs: [string, string][] = [
@@ -17,6 +25,7 @@ const NavbarLinkDefs: [string, string][] = [
   ["Install", "/install"],
   ["Learn", "/lesson/Hello_World"],
   ["Play", "/code"],
+  ["GitHub", "https://github.com/cstuartroe/teko.to"],
 ];
 
 export default class Navbar extends Component<Props, {}> {
@@ -39,7 +48,7 @@ export default class Navbar extends Component<Props, {}> {
         <div className="col-10 col-md-7 col-lg-5" style={{padding: 0}}>
           <div className="navbar-links">
             {NavbarLinkDefs.map((defn, i) => (
-              <NavbarLink title={defn[0]} href={defn[1]}/>
+              <NavbarLink title={defn[0]} href={defn[1]} key={i}/>
             ))}
           </div>
         </div>

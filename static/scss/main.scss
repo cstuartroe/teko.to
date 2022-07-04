@@ -23,6 +23,15 @@ h1, h2, h3, p, a, .lesson-number {
   letter-spacing: .5px;
 }
 
+a {
+  color: $teko_dark_blue;
+  font-weight: 600;
+
+  &:hover {
+    color: $teko_dark_blue;
+  }
+}
+
 .navbar {
   height: 10vh;
   padding: 0;
@@ -228,5 +237,17 @@ h1, h2, h3, p, a, .lesson-number {
     color: $dark_gray;
     font-size: 24px;
     cursor: pointer;
+  }
+}
+
+.command-snippet {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  margin-bottom: 1rem;
+
+  .prompt {
+    color: $light_gray;
+    padding-right: 10px;
   }
 }
