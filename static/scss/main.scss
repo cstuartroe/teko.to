@@ -3,7 +3,8 @@ $light_gray: #777;
 $dark_gray: #444;
 $teko_blue: #c5e6fc;
 $error_red: #f00;
-$success_green: #070;
+$success_green: #575;
+$keyword_orange: #b74;
 
 @font-face {
   font-family: "Source Code Pro";
@@ -43,8 +44,9 @@ h1, h2, h3, p, a {
 
 .code-input {
   height: 300px;
+  position: relative;
 
-  textarea {
+  .highlighted-code, .editable {
     width: 100%;
     padding-top: 3px;
     padding-left: 50px;
@@ -53,8 +55,34 @@ h1, h2, h3, p, a {
     outline: none;
     resize: none;
     font-size: 14px;
-    color: $dark_gray;
     background: transparent;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .highlighted-code {
+    color: $dark_gray;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+
+    .teko-comment {
+      color: $light_gray;
+    }
+
+    .teko-string {
+      color: $success_green;
+    }
+
+    .teko-keyword {
+      color: $keyword_orange;
+    }
+  }
+
+  .editable {
+    z-index: 1;
+    color: transparent;
+    caret-color: $dark_gray;
   }
 }
 
@@ -66,6 +94,7 @@ h1, h2, h3, p, a {
   background: transparent;
   padding: 5px 10px;
   outline: none;
+  z-index: 1;
 
   &:focus {
     outline: none;

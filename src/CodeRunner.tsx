@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import HighlightedCode from "./HighlightedCode";
 
 type Props = {
   starter_code?: string,
@@ -110,10 +111,13 @@ export default class CodeRunner extends Component<Props, State>{
       numLines += addedLines;
     })
 
+    const codeContent = this.state.code.replace(/ /g, '\xa0');
+
     return <div className="row code-runner">
       <div className="col-12 code code-input">
+        <HighlightedCode rows={numLines} content={codeContent}/>
         <textarea rows={numLines} spellCheck={false} ref={this.textarea}
-                  value={this.state.code.replace(' ', '\xa0')}
+                  value={codeContent} className="editable"
                   onChange={event => this.setState({
                     code: event.target.value,
                     cursor: event.target.selectionEnd,
