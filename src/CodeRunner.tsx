@@ -1,21 +1,27 @@
 import React, { Component } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlay } from "@fortawesome/free-solid-svg-icons";
+
+type Props = {
+  starter_code?: string,
+  target_output?: string,
+}
 
 type State = {
   code: string,
-  output: string,
+  output?: string,
   status: "ready" | "running" | "errored",
   cursor: number,
 }
 
-export default class CodeRunner extends Component<{}, State>{
+export default class CodeRunner extends Component<Props, State>{
   private textarea =  React.createRef<HTMLTextAreaElement>();
 
-  constructor(props: {}) {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
-      code: "",
-      output: "",
+      code: props.starter_code || "",
       status: "ready",
       cursor: 0,
     }
@@ -57,11 +63,6 @@ export default class CodeRunner extends Component<{}, State>{
         });
 
         if (done) break;
-
-        if (this.state.output.length > 5000) {
-          await reader.cancel()
-          throw "Too long yo";
-        }
       }
 
       this.setState({
@@ -79,7 +80,6 @@ export default class CodeRunner extends Component<{}, State>{
 
     if (ta === null) { return; }
 
-    ta.focus();
     ta.selectionEnd = this.state.cursor;
   }
 
@@ -95,10 +95,10 @@ export default class CodeRunner extends Component<{}, State>{
     let numbersString = "";
     let numLines = 0;
 
-    let maxLineLength = 0;
+    let maxLineLength = 80;
     const inputBox = this.textarea.current;
     if (inputBox !== null) {
-      maxLineLength = Math.floor((inputBox.offsetWidth - 50) / 9.65);
+      maxLineLength = Math.floor((inputBox.offsetWidth - 50) / 8.44);
     }
 
     this.state.code.split('\n').forEach((line, i) => {
@@ -110,13 +110,8 @@ export default class CodeRunner extends Component<{}, State>{
       numLines += addedLines;
     })
 
-    return <div className="row">
-      <div className="col-12 code-top-bar">
-        <button onClick={() => this.runCode()} disabled={this.state.status == "running"}>
-          Run!
-        </button>
-      </div>
-      <div className="col-6 code code-input">
+    return <div className="row code-runner">
+      <div className="col-12 code code-input">
         <textarea rows={numLines} spellCheck={false} ref={this.textarea}
                   value={this.state.code.replace(' ', '\xa0')}
                   onChange={event => this.setState({
@@ -125,12 +120,21 @@ export default class CodeRunner extends Component<{}, State>{
                   })}/>
         <div className="line-numbers">{numbersString}</div>
       </div>
-      <div className="col-6 code code-output">
-        {this.state.output}
-        {this.state.status === "errored" && (
-          <span className="runtime-error">Process killed.</span>
-        )}
-      </div>
+      <button className="run-button"
+              onClick={() => this.runCode()} disabled={this.state.status == "running"}>
+        <FontAwesomeIcon icon={faPlay}/>
+      </button>
+      {this.state.output !== undefined && (
+        <div className="col-12 code code-output">
+          {this.state.output}
+          {this.state.status === "errored" && (
+            <span className="runtime-error">Process killed.</span>
+          )}
+          {this.state.output.trim() === this.props.target_output && (
+            <span className="success-notif">Success!</span>
+          )}
+        </div>
+      )}
     </div>
   }
 }

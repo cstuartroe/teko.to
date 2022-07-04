@@ -1,20 +1,36 @@
+$pale_gray: #f3f3f3;
 $light_gray: #777;
 $dark_gray: #444;
 $error_red: #f00;
+$success_green: #070;
 
-.code-top-bar {
-  padding: 2vh 0;
+@font-face {
+  font-family: "Source Code Pro";
+  src: url("/static/font/SourceCodePro-VariableFont_wght.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("/static/font/OpenSans-VariableFont_wdth,wght.ttf") format("ttf");
+}
+
+h1, h2, h3, p {
+  font-family: "Open Sans", sans-serif;
+}
+
+.code-runner {
+  position: relative;
 }
 
 .code {
-  font-family: monospace;
+  font-family: "Source Code Pro", monospace;
   white-space: pre;
   position: relative;
-  border: 1px solid $light_gray;
+  border: none;
   padding: 0;
-  height: 500px;
   overflow-y: scroll;
-  font-size: 16px;
+  font-size: 14px;
+  background-color: $pale_gray;
 
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -25,7 +41,7 @@ $error_red: #f00;
 }
 
 .code-input {
-  border-right: none;
+  height: 300px;
 
   textarea {
     width: 100%;
@@ -35,8 +51,23 @@ $error_red: #f00;
     border: none;
     outline: none;
     resize: none;
-    font-size: 16px;
+    font-size: 14px;
     color: $dark_gray;
+    background: transparent;
+  }
+}
+
+.run-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: none;
+  background: transparent;
+  padding: 5px 10px;
+  outline: none;
+
+  &:focus {
+    outline: none;
   }
 }
 
@@ -49,9 +80,18 @@ $error_red: #f00;
 }
 
 .code-output {
-  padding: 3px;
+  padding: 10px 20px;
+  margin-top: 10px;
+  max-height: 150px;
 }
 
 .runtime-error {
   color: $error_red;
+}
+
+.success-notif {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  color: $success_green;
 }

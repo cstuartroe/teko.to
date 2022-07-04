@@ -1,9 +1,12 @@
-from django.shortcuts import render
-from django.http import StreamingHttpResponse, HttpRequest
-from django.conf import settings
 import subprocess
 import json
 import resource
+
+from django.shortcuts import render
+from django.http import StreamingHttpResponse, HttpRequest, JsonResponse
+from django.conf import settings
+
+from .lib.lessons import load_lessons
 
 MAX_MEMORY = 2**30  # 1GB
 MAX_OUTPUT_LINES = 200 if settings.DEBUG else 10000
@@ -11,7 +14,7 @@ MAX_OUTPUT_LINES = 200 if settings.DEBUG else 10000
 resource.setrlimit(resource.RLIMIT_AS, (MAX_MEMORY, MAX_MEMORY))
 
 
-def react_index(request):
+def react_index(request: HttpRequest):
     return render(request, 'react_index.html')
 
 
@@ -33,3 +36,7 @@ def create_run(request: HttpRequest):
         body = json.loads(request.body.decode())
 
         return StreamingHttpResponse(stream(body["contents"]))
+
+
+def get_lessons(_request: HttpRequest):
+    return JsonResponse(load_lessons(), safe=False)
