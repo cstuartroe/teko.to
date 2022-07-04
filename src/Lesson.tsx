@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { LessonDef } from "./types";
 import { parse } from "@textlint/markdown-to-ast";
 import CodeRunner from "./CodeRunner";
+import LessonList from "./LessonList";
 
 function AstNode(props: {src: any}) {
   const { src } = props;
@@ -49,6 +50,7 @@ function AstNode(props: {src: any}) {
 
 type Props = {
   definition: LessonDef,
+  lessons: LessonDef[],
 }
 
 type State = {
@@ -77,7 +79,11 @@ export default class Lesson extends Component<Props, State> {
 
     return (
       <div className="row lesson">
-        <div className="col-12">
+        <div className="col-2 lesson-panel">
+          <LessonList lessons={this.props.lessons} position={[]} visible={true}/>
+        </div>
+        <div className="col-1"/>
+        <div className="col-6">
           {ast.children.map((node: any, i: number) => <AstNode src={node} key={i}/>)}
         </div>
       </div>
