@@ -33,14 +33,14 @@ export default class Install extends Component<{}, {}> {
             </p>
 
             <p>
-              Make sure you have the Go programming language installed, then run
+              Make sure you have the latest version of the Go programming language installed, then run
             </p>
 
             <CommandSnippet text={"go install github.com/cstuartroe/teko@latest"}/>
 
             <p>
               For more information, check out{' '}
-              <a href="https://github.com/cstuartroe/teko.to">
+              <a href="https://github.com/cstuartroe/teko">
                 the GitHub repository
               </a>
               .

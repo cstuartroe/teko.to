@@ -88,10 +88,15 @@ a {
 
 .main-frame {
   padding-top: 2vh;
-}
-
-.lesson {
   height: 90vh;
+  overflow-y: scroll;
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .code-runner {
@@ -110,10 +115,10 @@ a {
 
   -ms-overflow-style: none;
   scrollbar-width: none;
-}
 
-.code::-webkit-scrollbar {
-  display: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .code-input {
@@ -162,7 +167,7 @@ a {
 
 .run-button {
   position: absolute;
-  right: 0;
+  left: 0;
   top: 0;
   border: none;
   background: transparent;

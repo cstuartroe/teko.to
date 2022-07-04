@@ -8,7 +8,7 @@ type Props = {
 
 function NavbarLink(props: {title: string, href: string}) {
   const { title, href } = props;
-  
+
   if (href[0] == "/") {
     return <Link to={href} className="navbar-link">
       {title}
@@ -25,7 +25,7 @@ const NavbarLinkDefs: [string, string][] = [
   ["Install", "/install"],
   ["Learn", "/lesson/Hello_World"],
   ["Play", "/code"],
-  ["GitHub", "https://github.com/cstuartroe/teko.to"],
+  ["GitHub", "https://github.com/cstuartroe/teko"],
 ];
 
 export default class Navbar extends Component<Props, {}> {

@@ -7,6 +7,7 @@ import { LessonFromParams } from "./Lesson";
 import "../static/scss/main.scss";
 import FreeCode from "./FreeCode";
 import Install from "./Install";
+import About from "./About";
 
 type State = {
   lessons: LessonDef[],
@@ -33,6 +34,8 @@ class App extends Component<{}, State> {
         <div className="container-fluid">
           <Routes>
             <Route index element={<Home/>}/>
+
+            <Route path="about" element={<About/>}/>
 
             <Route path="install" element={<Install/>}/>
 
