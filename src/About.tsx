@@ -68,6 +68,14 @@ export default class About extends Component<{}, {}> {
               the word <FinnishWord word={"pirteä"}/> "vivacious" becomes <FinnishWord word={"tekopirteä"}/>,
               a word which Wiktionary defines as "someone who pretends to be lively, despite being tired" (#relatable).
             </p>
+
+            <p>
+              I am not a native Finnish speaker, and learned the word <i>teko</i> from the song{' '}
+              <a href="https://www.youtube.com/watch?v=WuutVH1g8ZQ&list=OLAK5uy_n_lej2osJ6iMjFWLwsKqkygnT6cJn7gPw&index=1">
+                Kai sä tiedät kulta
+              </a> by Yona (you may find that video blocked in your location, but if you're in Finland or can convince
+              YouTube you're in Finland with a VPN or similar tool you should be able to give it a listen 🙂).
+            </p>
           </div>
         </div>
       </>
