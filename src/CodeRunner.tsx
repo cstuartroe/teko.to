@@ -101,7 +101,7 @@ export default class CodeRunner extends Component<Props, State>{
     let maxLineLength = 80;
     const inputBox = this.textarea.current;
     if (inputBox !== null) {
-      maxLineLength = Math.floor((inputBox.offsetWidth - 50) / 8.44);
+      maxLineLength = Math.floor((inputBox.offsetWidth - 50) / 8.40);
     }
 
     this.state.code.split('\n').forEach((line, i) => {
