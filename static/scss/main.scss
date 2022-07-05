@@ -1,11 +1,11 @@
 $pale_gray: #f3f3f3;
-$light_gray: #777;
+$light_gray: #888;
 $dark_gray: #444;
 $teko_hue: 204;
 $teko_blue: hsl($teko_hue, 90%, 88%);
 $teko_dark_blue: hsl($teko_hue, 90%, 75%);
 $error_red: #f00;
-$success_green: #575;
+$success_green: #595;
 $keyword_orange: #b74;
 
 @font-face {
@@ -154,6 +154,7 @@ a {
 
     .teko-comment {
       color: $light_gray;
+      font-style: italic;
     }
 
     .teko-string {
