@@ -30,15 +30,18 @@ const NavbarLinkDefs: [string, string][] = [
 
 export default class Navbar extends Component<Props, {}> {
   render() {
-    const homeClassNames = classNames({
-      "teko-home-link": true,
+    const boxClassNames = classNames({
+      "col-2": true,
+      "logo-box": true,
       "reverse": !!this.props.reverseHomeLinkColor,
     })
 
     return (
       <div className="row navbar">
-        <div className="col-2" style={{padding: 0}}>
-          <h1 className={homeClassNames}>
+        <div className={boxClassNames}>
+          <img src="/static/img/blue-fox.png"
+               alt="blue fox logo by https://www.vecteezy.com/members/erwanwanto750414870"/>
+          <h1 className="teko-home-link">
             <Link to="/">
               teko
             </Link>

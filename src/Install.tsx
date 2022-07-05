@@ -27,7 +27,7 @@ export default class Install extends Component<{}, {}> {
         <div className="row main-frame">
           <div className="col-0 col-md-2 col-lg-3"/>
 
-          <div className="col-12 col-md-8 col-lg-6">
+          <div className="col-12 col-md-8 col-lg-6" style={{paddingLeft: 0, paddingRight: 0}}>
             <p>
               The recommended installation process is to use Go.
             </p>
