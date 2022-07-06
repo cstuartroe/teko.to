@@ -29,6 +29,10 @@ h1, h2, h3, p, a, .lesson-number {
   letter-spacing: .5px;
 }
 
+p {
+  font-size: 14px;
+}
+
 a {
   color: $teko_dark_blue;
   font-weight: 600;
@@ -36,6 +40,10 @@ a {
   &:hover {
     color: $teko_dark_blue;
   }
+}
+
+hr {
+  border-color: #bbb;
 }
 
 .navbar {
@@ -132,6 +140,7 @@ a {
   font-size: 14px;
   background-color: $pale_gray;
   font-weight: 600;
+  margin-bottom: 1rem;
 
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -219,6 +228,7 @@ a {
   padding: 10px 20px;
   margin-top: 10px;
   max-height: 150px;
+  min-height: 41px;
 }
 
 .runtime-error {
@@ -237,6 +247,28 @@ a {
   padding-top: 15px;
 }
 
+.lesson-arrow {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  &:hover {
+    background-color: $pale_gray;
+  }
+
+  div {
+    text-align: center;
+
+    svg {
+      flex: 1;
+      font-size: 24px;
+      color: $dark_gray;
+    }
+  }
+}
+
 .lesson-list-section {
   padding-left: 10px;
   position: relative;
@@ -249,6 +281,10 @@ a {
       color: $dark_gray;
       padding-right: 25px;
       font-weight: 600;
+    }
+
+    .selected {
+      text-decoration: underline;
     }
 
     .lesson-number {
@@ -271,7 +307,6 @@ a {
   display: flex;
   flex-direction: row;
   padding: 10px;
-  margin-bottom: 1rem;
 
   .prompt {
     color: $light_gray;
