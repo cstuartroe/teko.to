@@ -50,6 +50,12 @@ function AstNode(props: {src: any}) {
 
       return <CodeRunner {...{starter_code, target_output}}/>
 
+    case "Strong":
+      return <span style={{fontWeight: 700}}>{children}</span>
+
+    case "Emphasis":
+      return <span style={{fontStyle: "italic"}}>{children}</span>
+
     default:
       console.log("Unknown node type");
       console.log(src);
