@@ -62,7 +62,7 @@ export default class CodeRunner extends Component<Props, State>{
         }
 
         this.setState({
-          output: this.state.output + new TextDecoder().decode(value),
+          output: this.state.output + new TextDecoder().decode(value).replace(/\xa0/g, ' '),
         });
 
         if (done) break;
@@ -78,20 +78,27 @@ export default class CodeRunner extends Component<Props, State>{
     }
   }
 
-  setCursor() {
+  setCursor(cursor?: number) {
     const ta = this.textarea.current;
 
     if (ta === null) { return; }
 
-    ta.selectionEnd = this.state.cursor;
+    ta.selectionEnd = cursor || this.state.cursor;
   }
 
   componentDidMount() {
     this.setCursor();
   }
 
-  componentDidUpdate() {
-    this.setCursor();
+  componentDidUpdate(prevProps:Readonly<Props>, prevState:Readonly<State>, snapshot?:any) {
+    if (prevProps.starter_code !== this.props.starter_code) {
+      this.setState({
+        code: this.props.starter_code || "",
+        output: undefined,
+      }, () => this.setCursor(0));
+    } else {
+      this.setCursor();
+    }
   }
 
   render() {
@@ -115,15 +122,14 @@ export default class CodeRunner extends Component<Props, State>{
 
     const codeContent = this.state.code.replace(/ /g, '\xa0');
 
-    let inputHeight = "300px";
+    let inputHeight = (22*(numLines + 1)) + "px";
     if (this.props.frameHeight) {
       inputHeight = this.props.frameHeight;
-    } else if (this.props.frozen) {
-      inputHeight = (22*numLines) + "px";
     }
 
     return <div className="row code-runner">
-      <div className="col-12 code code-input" style={{height: inputHeight}}
+      <div className="col-12 code code-input"
+           style={{height: inputHeight, maxHeight: this.props.frameHeight || "300px"}}
            onClick={() => this.textarea.current?.focus()}>
         <HighlightedCode rows={numLines} content={codeContent}/>
         <textarea rows={numLines} spellCheck={false} ref={this.textarea}

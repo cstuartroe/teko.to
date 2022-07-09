@@ -5,6 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 const classnames = require("classnames");
 
+export function lessonLink(title: string): string {
+  return '/lesson/' + title.replace(/ /g, '_')
+}
+
 type Props = {
   lesson: LessonDef,
   position: number[],
@@ -65,7 +69,7 @@ export class LessonItem extends Component<Props, State> {
         <div className="lesson-list-item">
           <div className="lesson-number">{position.join('.')}</div>
           <div className={link_classnames}>
-            <Link to={'/lesson/' + lesson.title.replace(' ', '_')}>
+            <Link to={lessonLink(lesson.title)}>
               {lesson.title}
             </Link>
           </div>

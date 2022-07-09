@@ -5,8 +5,7 @@ import CodeRunner from "./CodeRunner";
 const starterCode = (
   `// <-- Try clicking that arrow if you're not sure what to do.
 
-println("Try clicking one of the header links!")
-`);
+println("Try clicking one of the header links!")`);
 
 export default class Home extends Component<{}, {}> {
   render() {

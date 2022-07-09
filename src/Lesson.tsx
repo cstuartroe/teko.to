@@ -5,7 +5,7 @@ import { parse } from "@textlint/markdown-to-ast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import CodeRunner from "./CodeRunner";
-import LessonList from "./LessonList";
+import LessonList, { lessonLink } from "./LessonList";
 import Navbar from "./Navbar";
 
 function AstNode(props: {src: any}) {
@@ -42,7 +42,7 @@ function AstNode(props: {src: any}) {
 
     case "CodeBlock":
       const parts = src.value.split('---');
-      const starter_code = parts[0];
+      const starter_code = parts[0].trim();
       let target_output = undefined;
       if (parts.length > 1) {
         target_output = parts[1].trim();
@@ -129,7 +129,7 @@ export default class Lesson extends Component<Props, State> {
           </div>
           <div className="col-1 pl-0">
             {prev && (
-              <Link to={"/lesson/" + prev}>
+              <Link to={lessonLink(prev)}>
                 <div className="lesson-arrow">
                   <div>
                     <FontAwesomeIcon icon={faAngleLeft}/>
@@ -144,7 +144,7 @@ export default class Lesson extends Component<Props, State> {
           </div>
           <div className="col-1 pr-0">
             {next && (
-              <Link to={"/lesson/" + next}>
+              <Link to={lessonLink(next)}>
                 <div className="lesson-arrow">
                   <div>
                     <FontAwesomeIcon icon={faAngleRight}/>
@@ -166,5 +166,5 @@ export function LessonFromParams(props: {lessons: LessonDef[]}) {
     return null;
   }
 
-  return <Lesson title={title.replace('_', ' ')} lessons={props.lessons}/>
+  return <Lesson title={title.replace(/_/g, ' ')} lessons={props.lessons}/>
 }

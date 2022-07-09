@@ -6,5 +6,11 @@
   - Simple operations
   - Comparison
   - Control blocks
+- Type system essentials:
+  - Objects and object types
+  - Structural typing
+  - Mutability
+- Data structures:
   - Arrays
   - Maps
+  - Sets

@@ -5,7 +5,9 @@ const block_comment_regex = /(\/\*|\*\/)/
 const regexes: [RegExp, string][] = [
   [/\/\/.*/, 'teko-comment'],
   [/"[^"]*"/, 'teko-string'],
-  [/(?<![a-z])(fn|var|type|while|for|in|if|then|else|do|scope|Map|Set)(?![a-z])/, 'teko-keyword'],
+  [/'[^']'/, 'teko-char'],
+  [/(?<![a-zA-Z_])(fn|var|type|while|for|in|if|then|else|do|scope|Map|Set|str|char|int|bool)(?![a-zA-Z_])/, 'teko-keyword'],
+  [/(?<![a-zA-Z_])([1-9][0-9]*|0|true|false|null)(?![a-zA-Z_])/, 'teko-literal'],
   [/\/\*/, 'teko-comment'],
 ];
 

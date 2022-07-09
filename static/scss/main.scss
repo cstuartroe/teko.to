@@ -7,6 +7,8 @@ $teko_dark_blue: hsl($teko_hue, 90%, 75%);
 $error_red: #f00;
 $success_green: #595;
 $keyword_orange: #b74;
+$char_teal: #379;
+$literal_maroon: #700;
 
 @font-face {
   font-family: "Source Code Pro";
@@ -181,6 +183,14 @@ hr {
 
     .teko-string {
       color: $success_green;
+    }
+
+    .teko-char {
+      color: $char_teal;
+    }
+
+    .teko-literal {
+      color: $literal_maroon;
     }
 
     .teko-keyword {
