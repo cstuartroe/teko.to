@@ -6,10 +6,15 @@
   - Simple operations
   - Comparison
   - Control blocks
+  - Functions:
+    - Keyword arguments
+    - Default values
 - Type system essentials:
   - Objects and object types
   - Structural typing
   - Mutability
+  - Union types
+  - Constant types
 - Data structures:
   - Arrays
   - Maps
